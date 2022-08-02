@@ -1,29 +1,27 @@
 class Solution {
 public:
-    int f(int ind1,int ind2,string &word1, string &word2, vector<vector<int>>&dp)
-    {
-        if(ind1<0)
-            return ind2+1;
-            
-            if(ind2<0)
-                return ind1+1;
-        
-        if(dp[ind1][ind2]!=-1)
-        {
-            return dp[ind1][ind2];
-        }
-        if(word1[ind1]==word2[ind2])
-            return  dp[ind1][ind2]=f(ind1-1,ind2-1,word1,word2,dp);
-        
-        else
-            return dp[ind1][ind2] =1 + min(f(ind1-1,ind2,word1,word2,dp), min(f(ind1-1,ind2-1,word1,word2,dp),f(ind1,ind2-1,word1,word2,dp)));
+    int minDistance(string  S1, string S2) {
+      int n = S1.size();
+    int m = S2.size();
+    
+    vector<vector<int>> dp(n+1,vector<int>(m+1,0));
+    
+    for(int i=0;i<=n;i++){
+        dp[i][0] = i;
+    }
+    for(int j=0;j<=m;j++){
+        dp[0][j] = j;
     }
     
+    for(int i=1;i<n+1;i++){
+        for(int j=1;j<m+1;j++){
+            if(S1[i-1]==S2[j-1])
+                dp[i][j] = 0+dp[i-1][j-1];
+            
+            else dp[i][j] = 1+min(dp[i-1][j-1],min(dp[i-1][j],dp[i][j-1]));
+        }
+    }
     
-    int minDistance(string word1, string word2) {
-        int ind1=word1.size();
-        int ind2=word2.size();
-        vector<vector<int>>dp(ind1,vector<int>(ind2,-1));
-        return f(ind1-1,ind2-1,word1,word2,dp);
+    return dp[n][m];  
     }
 };
