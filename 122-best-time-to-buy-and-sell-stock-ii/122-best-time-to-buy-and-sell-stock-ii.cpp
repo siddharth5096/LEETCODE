@@ -20,7 +20,7 @@ public:
     
 int maxProfit(vector<int>& prices) {
         int n=prices.size();
-        vector<vector<long>>dp(n+1,vector<long>(2,-1));
+        vector<vector<long>>dp(n+1,vector<long>(2,0));
        //return f(0,1,prices,dp); 
 
         dp[n][0]=dp[n][1]=0;
