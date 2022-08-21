@@ -1,23 +1,27 @@
 class Solution {
 public:
     vector<int> findErrorNums(vector<int>& nums) {
-        unordered_map<int,int>ump;
-		vector<int>ans;
-		for(auto itr:nums)
-		{
-			ump[itr]++;
-		}
+        map<int,int>mp;
+        vector<int>ans;
+        int n=nums.size();
+        for(int i=1;i<=n;i++)
+        {
+            mp[i]=0;
+        }
+        for(int i=0;i<n;i++)
+        {
+           mp[nums[i]]+=1;
+        }
+        int x=0;
+        for(auto it : mp )
+        {
+              if(it.second==2)
+                 x = it.first;
+             if (it.second==0)
+                ans.push_back(it.first);
+        }
         
-		for(int i=1;i<=nums.size();i++)
-		{
-			if(ump.find(i)==ump.end())
-				ans.push_back(i);
-		}
-		for(auto itr:ump)
-		{
-			if(itr.second>1)
-				ans.insert(ans.begin(),itr.first);
-		}
-		return ans; 
+        ans.insert(ans.begin(),x);
+        return ans;
     }
 };
