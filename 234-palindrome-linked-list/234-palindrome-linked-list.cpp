@@ -11,16 +11,39 @@
 class Solution {
 public:
     bool isPalindrome(ListNode* head) {
-    string front = "";
-        while(head){
-            front += head->val;
-            head = head->next;
+      if(head==NULL || head->next==NULL)
+          return true;
+        
+        ListNode* slow=head;
+        ListNode* fast=head;
+        while(fast->next!= NULL && fast->next->next!=NULL){
+            slow=slow->next;
+            fast=fast->next->next;
         }
-        string reverse_front = front;
-        reverse(front.begin(), front.end());
-        if(front == reverse_front)
-            return true;
-        return false;
+        slow->next=revl(slow->next);
+       slow=slow->next;
+        while(slow!=NULL)
+        {
+            if(head->val!=slow->val)
+            return false;
+            head=head->next;
+            slow=slow->next;
+        }
+        return true;
+       
+}
     
+   ListNode* revl(ListNode* head){
+        ListNode*prev= NULL;
+        ListNode*forw= NULL;
+        while(head!=NULL)
+        {
+            forw=head->next;
+            head->next=prev;
+            prev=head;
+            head=forw;
+        }
+       return prev;
     }
+    
 };
