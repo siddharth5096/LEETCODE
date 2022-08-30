@@ -11,7 +11,7 @@
  */
 class Solution {
 public:
-    void sup(TreeNode* root, string& s, int& sum)
+    void sup(TreeNode* root, string s, int& sum)
     {
         if (!root)
         {
@@ -21,12 +21,12 @@ public:
         if (!root->left && !root->right)
         {
             sum += stoi(s);
-            s.pop_back();
+            // s.pop_back();
             return;
         }
         sup(root->left, s, sum);
         sup(root->right, s, sum);
-        s.pop_back();
+        // s.pop_back();
     }
     int sumNumbers(TreeNode* root) {
        int sum=0;
